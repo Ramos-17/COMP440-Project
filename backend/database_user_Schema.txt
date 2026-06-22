@@ -1,0 +1,11 @@
+This is the table that was used in the schema
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users(
+    username VARCHAR(100) NOT NULL PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    phone_number VARCHAR(20) UNIQUE
+);
