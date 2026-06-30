@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ function Signup() {
   });
 
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
 
   function handleChange(event) {
     setFormData({
@@ -20,7 +23,7 @@ function Signup() {
     });
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (
@@ -41,7 +44,33 @@ function Signup() {
       return;
     }
 
-    setMessage("Validation passed!");
+    try {
+      const response = await fetch("http://127.0.0.1:5000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          phone_number: formData.phone,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setMessage(result.error || "Registration failed.");
+        return;
+      }
+
+      setMessage(result.message);
+    } catch {
+      setMessage("Could not connect to the backend.");
+    }
   }
 
   return (
@@ -102,6 +131,10 @@ function Signup() {
 
         <button type="submit">Sign Up</button>
       </form>
+
+      <button onClick={() => navigate("/login")}>Go to Login</button>
+
+      <br /><br />
 
       <p>{message}</p>
     </div>
