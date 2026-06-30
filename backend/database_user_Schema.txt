@@ -9,3 +9,15 @@ CREATE TABLE users(
     email VARCHAR(100) UNIQUE,
     phone_number VARCHAR(20) UNIQUE
 );
+
+USE User440;
+
+CREATE TABLE items (
+    item_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

@@ -56,3 +56,37 @@ def create_item():
         if connection:
             connection.close()
 
+@items.get("/items/search")
+def search_items():
+    category = request.args.get("category", "").strip()
+
+    if not category:
+        return jsonify({"error": "Category is required"}), 400
+
+    connection = None
+    cursor = None
+
+    try:
+        connection = connect_db()
+        cursor = connection.cursor(dictionary=True)
+
+        cursor.execute(
+            """
+            SELECT item_id, username, title, category, description, price
+            FROM items
+            WHERE category LIKE %s
+            """,
+            ("%" + category + "%",)
+        )
+
+        results = cursor.fetchall()
+        return jsonify(results), 200
+
+    except Exception as error:
+        return jsonify({"error": str(error)}), 400
+
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
