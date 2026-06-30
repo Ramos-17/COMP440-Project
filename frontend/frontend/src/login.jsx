@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "", // init username
     password: "", // init password
@@ -50,10 +52,12 @@ export default function Login() {
   if (user) { //when user is logged in, show welcome message
     return (
       <div>
-        <h1>Login Successful</h1> 
+        <h1>Login Successful</h1>
         <p>Welcome, {user.first_name || user.username}</p>
         <p>Username: {user.username}</p>
         <p>Email: {user.email}</p>
+        <button onClick={() => navigate("/item")}>Post an Item</button>
+        <br /><br />
         <button onClick={() => setUser(null)}>Log out</button>
       </div>
     );

@@ -1,12 +1,14 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from main.login import auth
+from main.items import items
 
 
 def create_app():
     app = Flask(__name__)
     CORS(app)
     app.register_blueprint(auth, url_prefix="/api")
+    app.register_blueprint(items, url_prefix="/api")
 
     @app.get("/api/health")
     def health():
