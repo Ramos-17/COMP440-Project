@@ -21,3 +21,14 @@ CREATE TABLE items (
     price DECIMAL(10,2) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE reviews(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    item_id INT NOT NULL,
+    rating ENUM('excellent', 'good', 'fair', 'poor') NOT NULL,
+    description TEXT,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (item_id) REFERENCES items(item_id)
+);

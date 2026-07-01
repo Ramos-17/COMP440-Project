@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchItems() {
+  const navigate = useNavigate();
   const [category, setCategory] = useState("");
   const [items, setItems] = useState([]);
   const [message, setMessage] = useState("");
@@ -61,6 +63,7 @@ export default function SearchItems() {
               <th>Category</th>
               <th>Description</th>
               <th>Price</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -73,6 +76,11 @@ export default function SearchItems() {
                 <td>{item.category}</td>
                 <td>{item.description}</td>
                 <td>${item.price}</td>
+                <td>
+                  <button onClick={() => navigate(`/review?item_id=${item.item_id}`)}>
+                    Review
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

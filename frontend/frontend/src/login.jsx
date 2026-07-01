@@ -58,6 +58,10 @@ export default function Login() {
         <p>Email: {user.email}</p>
         <button onClick={() => navigate("/item")}>Post an Item</button>
         <br /><br />
+        <button onClick={() => navigate("/search")}>Search Items</button>
+        <br /><br />
+        <button onClick={() => navigate("/my-items")}>My Items</button>
+        <br /><br />
         <button onClick={() => setUser(null)}>Log out</button>
       </div>
     );
